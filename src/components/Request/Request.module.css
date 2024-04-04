@@ -1,0 +1,46 @@
+.request {
+    margin: 50px auto;
+    max-width: 700px;
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    background: rgb(255, 255, 255, 0.75);
+    -webkit-border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.request h1 {
+    text-align: center;
+    font-size: 48px;
+}
+
+.request input {
+    font-size: 36px;
+    max-width: 540px;
+    width: 100%;
+    height: 70px;
+    border: none;
+    border-radius: 50px;
+    padding-left: 20px;
+}
+
+.request button {
+    font-size: 36px;
+    max-width: 320px;
+    width: 100%;
+    height: 56px;
+    border-radius: 50px;
+    border: none;
+    color: white;
+}
+
+.sendButton {
+    background: #91AC59;
+}
+
+.fillButton {
+    background: #2D4FC9;
+}
