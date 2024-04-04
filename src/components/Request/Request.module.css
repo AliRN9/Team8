@@ -52,5 +52,6 @@
 
     .request button {
         max-width: 80%;
+        white-space: nowrap;
     }
 }
