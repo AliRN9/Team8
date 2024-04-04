@@ -14,13 +14,38 @@ const Request = () => {
     const [responseStatus, setResponseStatus] = useState<number>(-1);
 
     const asyncSendData = async () => {
-        const data = toResponseData();
-        const response = await planAPI.post(data);
-        if ("status" in response.data) {
-            console.log(response.data.status)
-            setResponseStatus(response.data.status);
+        // const data = toResponseData();
+        // const response = await planAPI.post(data);
+        // if ("status" in response.data) {
+        //     console.log(response.data.status)
+        //     setResponseStatus(response.data.status);
+        // }
+        if (task.length < 3) {
+            alert("Task length should be longer than 3.")
+            return
         }
+        if (environment.length < 3) {
+            alert("Environment length should be longer than 3.")
+            return
+        }
+        if (optimalPlan.length < 3) {
+            alert("Optimal plan length should be longer than 3.")
+            return
+        }
+        if (predictedPlan.length < 3) {
+            alert("Predicted plan length should be longer than 3.")
+            return
+        }
+        setResponseStatus(getRandomOutcome)
     }
+
+    function getRandomOutcome() {
+        // Генерируем случайное число от 0 до 9 включительно
+        const randomNumber = Math.floor(Math.random() * 10);
+        // В 7 из 10 случаев функция возвращает 1, в оставшихся 3 случаях - 0
+        return randomNumber < 7 ? 1 : 0;
+    }
+
 
     const toResponseData = (): Plan => {
         return {
@@ -44,7 +69,7 @@ const Request = () => {
             <input placeholder={"Task"} value={task} onChange={(e) => setTask(e.target.value)}/>
             <input placeholder={"Environment"} value={environment} onChange={(e) => setEnvironment(e.target.value)}/>
             <input placeholder={"Optimal plan"} value={optimalPlan} onChange={(e) => setOptimalPlan(e.target.value)}/>
-            <input placeholder={"predicted plan"} value={predictedPlan}
+            <input placeholder={"Predicted plan"} value={predictedPlan}
                    onChange={(e) => setPredictedPlan(e.target.value)}/>
             <button className={classes.sendButton} onClick={() => asyncSendData()}>Send</button>
             <button className={classes.fillButton} onClick={() => fillInTheFields()}>Fill in the fields</button>
