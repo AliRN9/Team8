@@ -44,3 +44,13 @@
 .fillButton {
     background: #2D4FC9;
 }
+
+@media (max-width: 768px) {
+    .request input {
+        max-width: 80%;
+    }
+
+    .request button {
+        max-width: 80%;
+    }
+}
