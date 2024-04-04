@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Plan} from "../../model/plan.ts"
 import classes from "./Request.module.css"
 import "./SuccessMark.css"
