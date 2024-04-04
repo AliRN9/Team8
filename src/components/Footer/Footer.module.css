@@ -1,6 +1,15 @@
 .footer {
     display: flex;
-    max-width: 700px;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 20px;
+    height: auto;
+    width: 100%;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.footer img {
+    width: auto;
+    height: 100%;
 }

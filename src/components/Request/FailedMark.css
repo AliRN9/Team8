@@ -1,11 +1,13 @@
 .circle {
-    width: 0;
-    height: 0;
+    top: 9px;
+    left: -4px;
+    z-index: 10;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background-color: transparent;
-    border: 3px solid #3498db;
     position: absolute;
-    animation: circleAnimation 2s forwards;
+    box-sizing: content-box;
+    border: #e74c3c solid 4px;
 }
 
 .cross {
@@ -13,13 +15,18 @@
     opacity: 0;
     animation: crossFadeIn 1s forwards;
     animation-delay: 1s;
+    width: 80px;
+    height: 115px;
+    margin: 0 auto;
 }
 
 .line {
     position: absolute;
-    width: 100px;
+    width: 65px;
     height: 10px;
     background-color: #e74c3c;
+    bottom: 50%;
+    left: 7px;
 }
 
 .line1 {

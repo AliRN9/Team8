@@ -1,9 +1,10 @@
-import planAPI from "../../api/planAPI.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Plan} from "../../model/plan.ts"
 import classes from "./Request.module.css"
 import "./SuccessMark.css"
 import "./FailedMark.css"
+import {mockEnvironment, mockOptimalPlan, mockPredictedPlan, mockTask} from "./mockData.ts";
+import planAPI from "../../api/planAPI.ts";
 
 const Request = () => {
     const [task, setTask] = useState<string>("");
@@ -14,15 +15,14 @@ const Request = () => {
 
     const asyncSendData = async () => {
         const data = toResponseData();
-       // const response = await planAPI.post(data);
-
-        // if ("status" in response.data) {
-        //     setResponseStatus(response.data.status);
-        // }
-        setResponseStatus(0)
+        const response = await planAPI.post(data);
+        if ("status" in response.data) {
+            console.log(response.data.status)
+            setResponseStatus(response.data.status);
+        }
     }
 
-    const toResponseData = () : Plan => {
+    const toResponseData = (): Plan => {
         return {
             task: task,
             environment: environment,
@@ -32,22 +32,23 @@ const Request = () => {
     }
 
     const fillInTheFields = () => {
-        setTask("")
-        setEnvironment("")
-        setOptimalPlan("")
-        setPredictedPlan("")
+        setTask(mockTask)
+        setEnvironment(mockEnvironment)
+        setOptimalPlan(mockOptimalPlan)
+        setPredictedPlan(mockPredictedPlan)
     }
 
     return (
         <div className={classes.request}>
-            <h1>Tryout</h1>
+            <h1>The team 8 model</h1>
             <input placeholder={"Task"} value={task} onChange={(e) => setTask(e.target.value)}/>
-            <input placeholder={"environment"} value={environment} onChange={(e) => setEnvironment(e.target.value)}/>
+            <input placeholder={"Environment"} value={environment} onChange={(e) => setEnvironment(e.target.value)}/>
             <input placeholder={"Optimal plan"} value={optimalPlan} onChange={(e) => setOptimalPlan(e.target.value)}/>
-            <input placeholder={"predicted plan"} value={predictedPlan} onChange={(e) => setPredictedPlan(e.target.value)}/>
+            <input placeholder={"predicted plan"} value={predictedPlan}
+                   onChange={(e) => setPredictedPlan(e.target.value)}/>
             <button className={classes.sendButton} onClick={() => asyncSendData()}>Send</button>
             <button className={classes.fillButton} onClick={() => fillInTheFields()}>Fill in the fields</button>
-            {responseStatus === 1 &&
+            {responseStatus == 1 &&
                 <div className="success-checkmark">
                     <div className="check-icon">
                         <span className="icon-line line-tip"></span>
@@ -57,12 +58,13 @@ const Request = () => {
                     </div>
                 </div>
             }
-            {responseStatus === 0 &&
+            {responseStatus == 0 &&
                 <div className="cross">
                     <div className="line line1"></div>
                     <div className="line line2"></div>
+                    <div className="circle"></div>
                 </div>
-             }
+            }
         </div>
     );
 };
