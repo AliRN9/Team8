@@ -3,7 +3,6 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"middlewareGolang/pkg/service"
-	"net/http"
 )
 
 type Handler struct {
@@ -16,27 +15,29 @@ func NewHandler(services *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
+	router.Use(CORSMiddleware())
 
 	api := router.Group("/api")
 	{
-		api.POST("/predict", CORS(h.getPredict))
+		api.POST("/predict", h.getPredict)
 	}
 
 	return router
 }
 
-func CORS(next gin.HandlerFunc) gin.HandlerFunc {
+func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
 
 		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(http.StatusNoContent)
+			c.AbortWithStatus(204)
 			return
 		}
 
-		next(c)
+		c.Next()
 	}
 }
